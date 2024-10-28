@@ -38,3 +38,65 @@ const teamMembers = [
         img: "img/female3.png"
     }
 ];
+
+// DOM ELEMENTS
+const cardImage = document.getElementById('card_img')
+const cardTitle = document.getElementById('card_title')
+const cardText = document.getElementById('card_text')
+const cardInfo = document.getElementById('card_info')
+const cardContainer = document.getElementById('card_container')
+
+
+// Utilizzo di un ciclo for per creare e aggiungere le cards
+for (let i = 0; i < teamMembers.length; i++) {
+    const member = teamMembers[i]
+
+    // Creazione delle strutture delle card
+    const cardDiv = document.createElement('div')
+    cardDiv.className = 'col-12 col-md-6 col-lg-4'
+
+    const card = document.createElement('div')
+    card.className = 'card mb-3 bg-dark'
+
+    const cardRow = document.createElement('div')
+    cardRow.className = 'row g-0'
+
+    const cardImgCol = document.createElement('div')
+    cardImgCol.className = 'col-4'
+
+    const img = document.createElement('img')
+    img.src = member.img
+    img.className = 'img-fluid'
+    img.alt = `Immagine di ${member.name}`
+
+    const cardBodyCol = document.createElement('div')
+    cardBodyCol.className = 'col-8'
+
+    const cardBody = document.createElement('div')
+    cardBody.className = 'card-body ms-3'
+
+    const name = document.createElement('h5')
+    name.textContent = member.name
+    name.className = 'text-white text-uppercase fw-bold pt-3'
+
+    const role = document.createElement('p')
+    role.textContent = member.role
+    role.className = 'text-white'
+
+    const email = document.createElement('a')
+    email.href = `mailto:${member.email}`
+    email.textContent = member.email
+    email.className = 'text-info'
+
+    // Costruzione della card
+    cardBody.appendChild(name)
+    cardBody.appendChild(role)
+    cardBody.appendChild(email)
+    cardBodyCol.appendChild(cardBody)
+    cardImgCol.appendChild(img)
+    cardRow.appendChild(cardImgCol)
+    cardRow.appendChild(cardBodyCol)
+    card.appendChild(cardRow)
+    cardDiv.appendChild(card)
+    cardContainer.appendChild(cardDiv)
+}
