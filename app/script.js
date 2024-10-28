@@ -51,17 +51,16 @@ function createCard(member) {
     cardClone.classList.remove('d-none') // Rendi la card visibile
 
     // Riempi i contenuti con i dati del membro
-    cardClone.querySelector('.card-img').src = member.img;
-    cardClone.querySelector('.card-img').alt = `Immagine di ${member.name}`
-    cardClone.querySelector('.card-title').textContent = member.name
-    cardClone.querySelector('.card-role').textContent = member.role
-    cardClone.querySelector('.card-email').textContent = member.email
+    cardClone.querySelector('.card_img').src = member.img;
+    cardClone.querySelector('.card_title').textContent = member.name
+    cardClone.querySelector('.card_role').textContent = member.role
+    cardClone.querySelector('.card_email').textContent = member.email
 
     // Aggiungi la card clonata al suo contenitore
     cardContainer.appendChild(cardClone)
 }
 
-// Crea le card iniziali con la funzione per ogni elemento dell'array di oggetti
+// Creo le card iniziali con la funzione per ogni elemento dell'array di oggetti
 teamMembers.forEach(createCard)
 
 // Aggiungi un nuovo membro dal form
