@@ -40,70 +40,31 @@ const teamMembers = [
 ];
 
 // DOM ELEMENTS
-const cardImage = document.getElementById('card_img')
-const cardTitle = document.getElementById('card_title')
-const cardText = document.getElementById('card_text')
-const cardInfo = document.getElementById('card_info')
-const cardContainer = document.getElementById('card_container')
+const cardContainer = document.getElementById('card-container')
 const addMemberForm = document.getElementById('add-member-form')
+const cardTemplate = document.getElementById('card-template')
 
-
-// Funzione per creare una card e aggiungerla al DOM
+// Funzione per creare e riempire una nuova card
 function createCard(member) {
-    const cardDiv = document.createElement('div')
-    cardDiv.className = 'col-12 col-md-6 col-lg-4'
+    // Clono il template della card con tutti i suoi figli e classi
+    const cardClone = cardTemplate.cloneNode(true)
+    cardClone.classList.remove('d-none') // Rendi la card visibile
 
-    const card = document.createElement('div')
-    card.className = 'card mb-3 bg-dark'
+    // Riempi i contenuti con i dati del membro
+    cardClone.querySelector('.card-img').src = member.img;
+    cardClone.querySelector('.card-img').alt = `Immagine di ${member.name}`
+    cardClone.querySelector('.card-title').textContent = member.name
+    cardClone.querySelector('.card-role').textContent = member.role
+    cardClone.querySelector('.card-email').textContent = member.email
 
-    const cardRow = document.createElement('div')
-    cardRow.className = 'row g-0'
-
-    const cardImgCol = document.createElement('div')
-    cardImgCol.className = 'col-4'
-
-    const img = document.createElement('img')
-    img.src = member.img
-    img.className = 'img-fluid'
-    img.alt = `Immagine di ${member.name}`
-
-    const cardBodyCol = document.createElement('div')
-    cardBodyCol.className = 'col-8'
-
-    const cardBody = document.createElement('div')
-    cardBody.className = 'card-body ms-3'
-
-    const name = document.createElement('h5')
-    name.textContent = member.name
-    name.className = 'text-white text-uppercase fw-bold pt-3'
-
-    const role = document.createElement('p')
-    role.textContent = member.role
-    role.className = 'text-white'
-
-    const email = document.createElement('a')
-    email.href = `mailto:${member.email}`
-    email.textContent = member.email
-    email.className = 'text-info'
-
-    cardBody.appendChild(name)
-    cardBody.appendChild(role)
-    cardBody.appendChild(email)
-    cardBodyCol.appendChild(cardBody)
-    cardImgCol.appendChild(img)
-    cardRow.appendChild(cardImgCol)
-    cardRow.appendChild(cardBodyCol)
-    card.appendChild(cardRow)
-    cardDiv.appendChild(card)
-    cardContainer.appendChild(cardDiv)
+    // Aggiungi la card clonata al suo contenitore
+    cardContainer.appendChild(cardClone)
 }
 
-// Creazione delle cards iniziali, con funzione applicata ad ogni i dell'array di oggetti
-for (let i = 0; i < teamMembers.length; i++) {
-    createCard(teamMembers[i])
-}
+// Crea le card iniziali con la funzione per ogni elemento dell'array di oggetti
+teamMembers.forEach(createCard)
 
-// Funzione per aggiungere un nuovo membro
+// Aggiungi un nuovo membro dal form
 function addMember(event) {
     event.preventDefault()
     const newMember = {
@@ -112,8 +73,10 @@ function addMember(event) {
         email: document.getElementById('email').value,
         img: document.getElementById('img').value
     }
-    teamMembers.push(newMember)  // aggiungo il nuovo membro nell'array di oggetti iniziali
-    createCard(newMember)   // applico la funzione per creare la card per il nuovo membro
+    teamMembers.push(newMember)
+
+    // Crea e aggiungi la nuova card
+    createCard(newMember)
     addMemberForm.reset()
 }
 
